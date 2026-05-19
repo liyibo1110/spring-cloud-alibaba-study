@@ -1,4 +1,4 @@
-package com.github.liyibo1110.alibaba.cloud.nacos.utils;
+package com.github.liyibo1110.alibaba.cloud.nacos;
 
 import com.github.liyibo1110.alibaba.cloud.nacos.NacosPropertiesPrefixer;
 import org.springframework.context.annotation.Condition;

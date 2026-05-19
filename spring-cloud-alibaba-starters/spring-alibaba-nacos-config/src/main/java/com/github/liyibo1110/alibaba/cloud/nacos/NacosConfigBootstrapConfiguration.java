@@ -1,6 +1,5 @@
-package com.github.liyibo1110.alibaba.cloud.nacos.utils;
+package com.github.liyibo1110.alibaba.cloud.nacos;
 
-import com.github.liyibo1110.alibaba.cloud.nacos.NacosConfigProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
