@@ -3,12 +3,17 @@ package com.github.liyibo1110.alibaba.cloud.nacos;
 import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.exception.NacosException;
+import com.github.liyibo1110.alibaba.cloud.nacos.diagnostics.analyzer.NacosConnectionFailureException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
 /**
+ * 负责：
+ * 1、持有NacosConfigProperties
+ * 2、创建并缓存，以及对外提供ConfigService
+ * 可以理解为：Spring Cloud Alibaba到Nacos Client库的桥接组件。
  * @author liyibo
  * @date 2026-05-19 18:26
  */
