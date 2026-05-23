@@ -10,6 +10,9 @@ package com.github.liyibo1110.alibaba.cloud.nacos.configdata;
  * @date 2026-05-22 10:21
  */
 public enum ConfigPreference {
+    /** 本地配置优先级更高，远程配置不能覆盖本地 */
     LOCAL,
+
+    /** 远程配置优先级更高，可以覆盖本地非profile的配置 */
     REMOTE
 }
