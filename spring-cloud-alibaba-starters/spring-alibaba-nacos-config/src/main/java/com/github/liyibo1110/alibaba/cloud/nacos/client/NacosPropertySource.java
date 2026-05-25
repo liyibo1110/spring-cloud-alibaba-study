@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Spring的PropertySource扩展。
  * @author liyibo
  * @date 2026-05-23 15:53
  */
