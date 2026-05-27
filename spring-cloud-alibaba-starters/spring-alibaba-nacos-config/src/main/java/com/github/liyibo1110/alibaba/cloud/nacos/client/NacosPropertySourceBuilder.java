@@ -2,6 +2,7 @@ package com.github.liyibo1110.alibaba.cloud.nacos.client;
 
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.exception.NacosException;
+import com.github.liyibo1110.alibaba.cloud.nacos.NacosPropertySourceRepository;
 import com.github.liyibo1110.alibaba.cloud.nacos.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 生成NacosPropertySource对象的工厂
+ * 生成NacosPropertySource对象的工厂。
  * @author liyibo
  * @date 2026-05-25 10:07
  */
