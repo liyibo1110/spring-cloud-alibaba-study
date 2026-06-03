@@ -1,14 +1,23 @@
 package com.github.liyibo1110.alibaba.cloud.nacos.parser;
 
+import com.github.liyibo1110.alibaba.cloud.nacos.utils.NacosConfigUtils;
+import org.springframework.boot.env.OriginTrackedMapPropertySource;
+import org.springframework.boot.env.PropertiesPropertySourceLoader;
 import org.springframework.boot.env.PropertySourceLoader;
+import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.PropertySource;
 import org.springframework.core.io.support.SpringFactoriesLoader;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 根据配置格式后缀，选择合适的PropertySourceLoader，把Nacos返回的配置文本，解析成Spring的PropertySource。
@@ -46,6 +55,40 @@ public class NacosDataParserHandler {
             if (!canLoadFileExtension(propertySourceLoader, extension))
                 continue;
 
+            NacosByteArrayResource nacosByteArrayResource;
+            // 如果是要解析properties文件，则要额外转成unicode，因为PropertiesPropertySourceLoader内部使用的是ISO_8859_1，中文会乱码
+            if(propertySourceLoader instanceof PropertiesPropertySourceLoader)
+                nacosByteArrayResource = new NacosByteArrayResource(NacosConfigUtils.selectiveConvertUnicode(configValue).getBytes(), configName);
+            else
+                nacosByteArrayResource = new NacosByteArrayResource(configValue.getBytes(), configName);
+
+            nacosByteArrayResource.setFilename(getFileName(configName, extension));
+            // 正式调用特定loader的load
+            List<PropertySource<?>> propertySourceList = propertySourceLoader.load(configName, nacosByteArrayResource);
+            if (CollectionUtils.isEmpty(propertySourceList))
+                return Collections.emptyList();
+            /**
+             * 后半段的重要处理，就是把EnumerablePropertySource转成OriginTrackedMapPropertySource。
+             *
+             * 即如果是EnumerablePropertySource，则取出所有propertyNames，然后获取值，放到LinkedHashMap中，用来保留有顺序的属性名，
+             * 最后重新包装成OriginTrackedMapPropertySource。
+             *
+             * 目的是更适合Spring Boot的配置体系使用，并且支持origin tracking的相关能力。
+             */
+            return propertySourceList.stream().filter(Objects::nonNull)
+                .map(propertySource -> {
+                    if (propertySource instanceof EnumerablePropertySource enumerablePropertySource) {
+                        String[] propertyNames = enumerablePropertySource.getPropertyNames();
+                        if (propertyNames != null && propertyNames.length > 0) {
+                            Map<String, Object> map = new LinkedHashMap<>();
+                            Arrays.stream(propertyNames).forEach(name -> {
+                                map.put(name, propertySource.getProperty(name));
+                            });
+                            return new OriginTrackedMapPropertySource(propertySource.getName(), map, true);
+                        }
+                    }
+                    return propertySource;
+                }).collect(Collectors.toList());
         }
 
         return Collections.emptyList();
