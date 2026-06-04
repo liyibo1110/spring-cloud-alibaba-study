@@ -109,7 +109,7 @@ public class NacosDataParserHandler {
         if (!StringUtils.hasLength(name))
             return DEFAULT_EXTENSION;
 
-        int idx = name.lastIndexOf(DOT);
+        int idx = name.lastIndexOf(AbstractPropertySourceLoader.DOT);
         if (idx > 0 && idx < name.length() - 1)
             return name.substring(idx + 1);
 
@@ -126,13 +126,13 @@ public class NacosDataParserHandler {
         if (!StringUtils.hasLength(name))
             return extension;
 
-        int idx = name.lastIndexOf(DOT);
+        int idx = name.lastIndexOf(AbstractPropertySourceLoader.DOT);
         if (idx > 0 && idx < name.length() - 1) {
             String ext = name.substring(idx + 1);
             if (extension.equalsIgnoreCase(ext))
                 return name;
         }
-        return name + DOT + extension;
+        return name + AbstractPropertySourceLoader.DOT + extension;
     }
 
     public static NacosDataParserHandler getInstance() {
