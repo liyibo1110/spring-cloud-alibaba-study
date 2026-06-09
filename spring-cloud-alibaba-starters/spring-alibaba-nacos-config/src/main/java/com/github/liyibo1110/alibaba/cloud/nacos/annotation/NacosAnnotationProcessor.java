@@ -4,7 +4,6 @@ import com.alibaba.nacos.api.config.ConfigChangeEvent;
 import com.alibaba.nacos.api.config.ConfigChangeItem;
 import com.alibaba.nacos.api.config.listener.AbstractListener;
 import com.alibaba.nacos.client.config.common.GroupKey;
-import com.alibaba.nacos.client.config.listener.impl.AbstractConfigChangeListener;
 import com.github.liyibo1110.alibaba.cloud.nacos.NacosConfigManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -364,7 +363,7 @@ public class NacosAnnotationProcessor implements BeanPostProcessor, PriorityOrde
 
                     @Override
                     public void receiveConfigInfo(String configInfo) {
-                        if (org.springframework.util.StringUtils.hasText(configInfo)) {
+                        if (StringUtils.hasText(configInfo)) {
                             try {
                                 if (invokePrimitiveMethod(method, getTarget(), configInfo))
                                     return;
@@ -385,7 +384,7 @@ public class NacosAnnotationProcessor implements BeanPostProcessor, PriorityOrde
 
             getNacosConfigManager().getConfigService().addListener(dataId, group, listener);
             targetListenerMap.put(refreshTargetKey, listener);
-            if (annotation.initNotify() && org.springframework.util.StringUtils.hasText(configInfo)) {
+            if (annotation.initNotify() && StringUtils.hasText(configInfo)) {
                 try {
                     log.info("[Nacos Config] init notify listener of {}  on {} start...", refreshTargetKey, bean);
                     listener.receiveConfigInfo(configInfo);
@@ -437,7 +436,7 @@ public class NacosAnnotationProcessor implements BeanPostProcessor, PriorityOrde
                                                        Field field, String defaultValue) {
         try {
             String config = getDestContent(getGroupKeyContent(dataId, group, refreshed), key);
-            if (!org.springframework.util.StringUtils.hasText(config))
+            if (!StringUtils.hasText(config))
                 config = defaultValue;
 
             //primitive type
