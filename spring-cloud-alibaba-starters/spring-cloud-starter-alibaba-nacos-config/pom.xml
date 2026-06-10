@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>com.github.liyibo1110</groupId>
-    <artifactId>spring-alibaba-nacos-config</artifactId>
+    <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
     <version>2025.0.0.0</version>
 
     <properties>
@@ -19,6 +19,18 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-commons</artifactId>
+            <version>2025.0.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-alibaba-nacos-config</artifactId>
+            <version>2025.0.0.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-actuator-autoconfigure</artifactId>
@@ -34,22 +46,22 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>6.2.7</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>3.5.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>com.alibaba.nacos</groupId>
             <artifactId>nacos-client</artifactId>
             <version>3.0.3</version>
+        </dependency>
+
+        <!--spring cloud-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-commons</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-context</artifactId>
+            <version>4.3.0</version>
         </dependency>
 
         <dependency>

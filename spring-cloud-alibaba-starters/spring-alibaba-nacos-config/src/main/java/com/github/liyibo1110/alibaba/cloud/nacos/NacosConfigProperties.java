@@ -1,5 +1,8 @@
 package com.github.liyibo1110.alibaba.cloud.nacos;
 
+import com.alibaba.nacos.api.PropertyKeyConst;
+import com.alibaba.nacos.api.config.ConfigService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.liyibo1110.alibaba.cloud.nacos.utils.PropertySourcesUtils;
 import com.github.liyibo1110.alibaba.cloud.nacos.utils.StringUtils;
 import jakarta.annotation.PostConstruct;
@@ -393,33 +396,33 @@ public class NacosConfigProperties {
 
     public Properties assembleConfigServiceProperties() {
         Properties properties = new Properties();
-        properties.put(SERVER_ADDR, Objects.toString(this.serverAddr, ""));
-        properties.put(USERNAME, Objects.toString(this.username, ""));
-        properties.put(PASSWORD, Objects.toString(this.password, ""));
-        properties.put(ENCODE, Objects.toString(this.encode, ""));
-        properties.put(NAMESPACE, this.resolveNamespace());
-        properties.put(ACCESS_KEY, Objects.toString(this.accessKey, ""));
-        properties.put(SECRET_KEY, Objects.toString(this.secretKey, ""));
-        properties.put(RAM_ROLE_NAME, Objects.toString(this.ramRoleName, ""));
-        properties.put(CLUSTER_NAME, Objects.toString(this.clusterName, ""));
-        properties.put(MAX_RETRY, Objects.toString(this.maxRetry, ""));
-        properties.put(CONFIG_LONG_POLL_TIMEOUT, Objects.toString(this.configLongPollTimeout, ""));
-        properties.put(CONFIG_RETRY_TIME, Objects.toString(this.configRetryTime, ""));
-        properties.put(ENABLE_REMOTE_SYNC_CONFIG, Objects.toString(this.enableRemoteSyncConfig, ""));
+        properties.put(PropertyKeyConst.SERVER_ADDR, Objects.toString(this.serverAddr, ""));
+        properties.put(PropertyKeyConst.USERNAME, Objects.toString(this.username, ""));
+        properties.put(PropertyKeyConst.PASSWORD, Objects.toString(this.password, ""));
+        properties.put(PropertyKeyConst.ENCODE, Objects.toString(this.encode, ""));
+        properties.put(PropertyKeyConst.NAMESPACE, this.resolveNamespace());
+        properties.put(PropertyKeyConst.ACCESS_KEY, Objects.toString(this.accessKey, ""));
+        properties.put(PropertyKeyConst.SECRET_KEY, Objects.toString(this.secretKey, ""));
+        properties.put(PropertyKeyConst.RAM_ROLE_NAME, Objects.toString(this.ramRoleName, ""));
+        properties.put(PropertyKeyConst.CLUSTER_NAME, Objects.toString(this.clusterName, ""));
+        properties.put(PropertyKeyConst.MAX_RETRY, Objects.toString(this.maxRetry, ""));
+        properties.put(PropertyKeyConst.CONFIG_LONG_POLL_TIMEOUT, Objects.toString(this.configLongPollTimeout, ""));
+        properties.put(PropertyKeyConst.CONFIG_RETRY_TIME, Objects.toString(this.configRetryTime, ""));
+        properties.put(PropertyKeyConst.ENABLE_REMOTE_SYNC_CONFIG, Objects.toString(this.enableRemoteSyncConfig, ""));
         String endpoint = Objects.toString(this.endpoint, "");
         if (endpoint.contains(":")) {
             int index = endpoint.indexOf(":");
-            properties.put(ENDPOINT, endpoint.substring(0, index));
-            properties.put(ENDPOINT_PORT, endpoint.substring(index + 1));
+            properties.put(PropertyKeyConst.ENDPOINT, endpoint.substring(0, index));
+            properties.put(PropertyKeyConst.ENDPOINT_PORT, endpoint.substring(index + 1));
         } else {
-            properties.put(ENDPOINT, endpoint);
+            properties.put(PropertyKeyConst.ENDPOINT, endpoint);
         }
 
         enrichNacosConfigProperties(properties);
 
         // set default value when serverAddr and endpoint is empty
         if (StringUtils.isEmpty(this.serverAddr) && StringUtils.isEmpty(this.endpoint))
-            properties.put(SERVER_ADDR, DEFAULT_ADDRESS);
+            properties.put(PropertyKeyConst.SERVER_ADDR, DEFAULT_ADDRESS);
 
         return properties;
     }

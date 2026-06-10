@@ -1,5 +1,6 @@
 package com.github.liyibo1110.alibaba.cloud.nacos;
 
+import com.github.liyibo1110.alibaba.cloud.nacos.annotation.NacosAnnotationProcessor;
 import com.github.liyibo1110.alibaba.cloud.nacos.refresh.NacosContextRefresher;
 import com.github.liyibo1110.alibaba.cloud.nacos.refresh.NacosRefreshHistory;
 import org.springframework.beans.factory.BeanFactoryUtils;
