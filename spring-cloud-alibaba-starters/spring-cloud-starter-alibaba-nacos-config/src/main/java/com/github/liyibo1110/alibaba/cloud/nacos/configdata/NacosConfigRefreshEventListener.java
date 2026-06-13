@@ -1,4 +1,4 @@
-package com.github.liyibo1110.alibaba.cloud.nacos.client;
+package com.github.liyibo1110.alibaba.cloud.nacos.configdata;
 
 import com.alibaba.cloud.nacos.refresh.NacosConfigRefreshEvent;
 import org.slf4j.Logger;
